@@ -1,5 +1,5 @@
 const { offlineFallback, warmStrategyCache } = require('workbox-recipes');
-const { CacheFirst } = require('workbox-strategies');
+const { CacheFirst, StaleWhileRevalidate } = require('workbox-strategies');
 const { registerRoute } = require('workbox-routing');
 const { CacheableResponsePlugin } = require('workbox-cacheable-response');
 const { ExpirationPlugin } = require('workbox-expiration');
@@ -26,26 +26,15 @@ warmStrategyCache({
 
 registerRoute(({ request }) => request.mode === 'navigate', pageCache);
 
-// Implement asset caching
-const assetCache = new CacheFirst({
-  cacheName: 'asset-cache',
-  plugins: [
-    new CacheableResponsePlugin({
-      statuses: [0, 200],
-    }),
-    new ExpirationPlugin({
-      maxAgeSeconds: 60 * 24 * 60 * 60, // 60 days
-      maxEntries: 100,
-    }),
-  ],
-});
-
-// Determine if the request is for an asset
-const matchFunction = ({request}) => {
-  return request.destination === 'style' || 
-         request.destination === 'script' || 
-         request.destination === 'image';
-};
-
-// Register the route for caching assets
-registerRoute(matchFunction, assetCache);
+// Implementing asset caching
+registerRoute(
+  ({ request }) => ["style", "script", "worker"].includes(request.destination),
+  new StaleWhileRevalidate({
+    cacheName: "asset-cache",
+    plugins: [
+      new CacheableResponsePlugin({
+        statuses: [0, 200],
+      }),
+    ],
+  })
+);
