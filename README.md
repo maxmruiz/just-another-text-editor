@@ -49,7 +49,7 @@ The key features of this application is that you can use it online via the local
 
 ## Images
 
-![JATE-GIF](./JATE-recording.gif)
+![JATE-GIF](./image/JATE-recording.gif)
 
 ## Deployment
 
