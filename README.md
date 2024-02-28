@@ -53,4 +53,4 @@ The key features of this application is that you can use it online via the local
 
 ## Deployment
 
-If you would like to see a demo of how this project works, visit this [link](https://youtu.be/Jc4X_nptu-M).
+If you would like to use this text editor, visit this [link]().
