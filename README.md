@@ -53,4 +53,4 @@ The key features of this application is that you can use it online via the local
 
 ## Deployment
 
-If you would like to use this text editor, visit this [link]().
+If you would like to use this text editor, visit this [link](https://just-another-text-editor-2p0p.onrender.com/).
